@@ -1,15 +1,16 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, Users, MessageSquare } from 'lucide-react';
+import { Mail, Phone, MapPin, MessageSquare, Send, Users, Clock, Instagram, Zap, Sparkles, Leaf, ArrowRight, Globe, Shield, Target } from 'lucide-react';
 import { useState } from 'react';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     message: '',
-    interest: 'volunteer'
+    subject: 'general'
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -19,21 +20,15 @@ export default function ContactPage() {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // For now, just simulate form submission
-    // In production, you can connect this to:
-    // 1. Formspree: https://formspree.io/
-    // 2. EmailJS: https://www.emailjs.com/
-    // 3. Netlify Forms: https://www.netlify.com/products/forms/
-    // 4. Your own backend API
-    
+    // Simulate form submission
     await new Promise(resolve => setTimeout(resolve, 1000));
     
-    // Create mailto link as fallback
-    const subject = `Contact Form: ${formData.interest}`;
-    const body = `Name: ${formData.name}%0D%0AEmail: ${formData.email}%0D%0AInterest: ${formData.interest}%0D%0A%0D%0AMessage:%0D%0A${formData.message}`;
-    const mailtoLink = `mailto:contact@westsideecowarriors.org?subject=${encodeURIComponent(subject)}&body=${body}`;
+    // Create mailto link
+    const subject = `Contact Form: ${formData.subject}`;
+    const body = `Name: ${formData.name}%0D%0AEmail: ${formData.email}%0D%0APhone: ${formData.phone}%0D%0ASubject: ${formData.subject}%0D%0A%0D%0AMessage:%0D%0A${formData.message}`;
+    const mailtoLink = `mailto:ecowarriors.254@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
     
-    // Open email client as fallback
+    // Open email client
     window.open(mailtoLink, '_blank');
     
     setIsSubmitting(false);
@@ -45,8 +40,9 @@ export default function ContactPage() {
       setFormData({
         name: '',
         email: '',
+        phone: '',
         message: '',
-        interest: 'volunteer'
+        subject: 'general'
       });
     }, 5000);
   };
@@ -62,71 +58,112 @@ export default function ContactPage() {
     {
       icon: <Mail className="h-6 w-6" />,
       title: "Email Us",
-      details: "contact@westsideecowarriors.org",
-      action: "mailto:contact@westsideecowarriors.org",
-      description: "For general inquiries and partnerships"
+      details: "ecowarriors.254@gmail.com",
+      action: "mailto:ecowarriors.254@gmail.com",
+      description: "For general inquiries and partnerships",
+      color: "from-emerald-500 to-teal-600"
     },
     {
       icon: <Phone className="h-6 w-6" />,
       title: "Call Us",
-      details: "+254 700 000 000",
-      action: "tel:+254700000000",
-      description: "Available Monday to Friday, 9AM - 5PM"
+      details: "0117574570",
+      action: "tel:+254117574570",
+      description: "Main contact number",
+      color: "from-emerald-500 to-green-600"
     },
     {
       icon: <MapPin className="h-6 w-6" />,
-      title: "Visit Us",
-      details: "West Side, Nairobi, Kenya",
+      title: "Our Location",
+      details: "West Side, Nairobi",
       action: "#locations",
-      description: "Based in Kangemi, serving West Side communities"
+      description: "Based in West Side communities",
+      color: "from-green-500 to-emerald-600"
     },
     {
-      icon: <Users className="h-6 w-6" />,
-      title: "Join Us",
-      details: "Volunteer Application",
-      action: "#join-form",
-      description: "Become an Eco Warrior today"
+      icon: <Instagram className="h-6 w-6" />,
+      title: "Instagram",
+      details: "@whywainaina",
+      action: "https://instagram.com/whywainaina",
+      description: "Follow our youth engagement lead",
+      color: "from-pink-500 to-purple-600"
     }
   ];
 
-  const interestOptions = [
+  const subjectOptions = [
+    { value: 'general', label: 'General Inquiry' },
     { value: 'volunteer', label: 'Volunteer with us' },
     { value: 'partner', label: 'Partnership Opportunity' },
-    { value: 'media', label: 'Media Inquiry' },
     { value: 'donation', label: 'Donation/Support' },
+    { value: 'media', label: 'Media Inquiry' },
     { value: 'other', label: 'Other' }
   ];
 
   return (
-    <div className="min-h-screen pt-20">
+    <div className="min-h-screen pt-20 bg-black relative overflow-hidden">
+      {/* Animated Background */}
+      <div className="fixed inset-0 z-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-950/80 via-teal-950/60 to-black" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
+      </div>
+
       {/* Hero Section */}
-      <section className="bg-gradient-green text-white py-20">
-        <div className="container-custom text-center">
+      <section className="relative z-10 py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="space-y-6"
           >
-            <div className="inline-flex p-4 rounded-full bg-white/20 backdrop-blur-sm mb-6">
-              <MessageSquare className="h-12 w-12" />
-            </div>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Get in Touch</h1>
-            <p className="text-xl max-w-3xl mx-auto">
+            {/* Animated Logo */}
+            <motion.div
+              className="inline-block"
+              animate={{
+                scale: [1, 1.05, 1],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+              }}
+            >
+              <div className="inline-flex p-4 rounded-full bg-gradient-to-br from-emerald-500/20 to-teal-500/20 backdrop-blur-sm border border-emerald-500/30">
+                <MessageSquare className="h-16 w-16 text-emerald-300" />
+                <Sparkles className="absolute -top-2 -right-2 h-6 w-6 text-yellow-300" />
+              </div>
+            </motion.div>
+
+            <motion.h1
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+              className="text-5xl md:text-6xl font-bold text-white"
+            >
+              Get in <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">Touch</span>
+            </motion.h1>
+            
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+              className="text-xl text-emerald-100/80 max-w-3xl mx-auto"
+            >
               Ready to join our movement or partner with us? Reach out—we'd love to hear from you.
-            </p>
+            </motion.p>
           </motion.div>
         </div>
       </section>
 
       {/* Contact Methods */}
-      <section className="section-padding">
-        <div className="container-custom">
+      <section className="relative z-10 py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
             className="mb-16"
           >
-            <h2 className="text-3xl font-bold text-center mb-12">How to Reach Us</h2>
+            <h2 className="text-3xl font-bold text-center mb-12 text-white">How to Reach Us</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {contactMethods.map((method, index) => (
                 <motion.div
@@ -136,147 +173,199 @@ export default function ContactPage() {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   viewport={{ once: true }}
                   whileHover={{ y: -5 }}
-                  className="bg-white rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition-shadow"
+                  className="relative group"
                 >
-                  <div className="inline-flex p-3 rounded-full bg-primary/10 text-primary mb-4">
-                    {method.icon}
+                  <div className="relative bg-gradient-to-b from-gray-900/40 to-black/40 backdrop-blur-lg rounded-2xl p-6 border border-emerald-500/20 group-hover:border-emerald-400/30 transition-all duration-300 overflow-hidden">
+                    {/* Background Energy Orb */}
+                    <motion.div
+                      className="absolute -inset-4 opacity-30"
+                      animate={{
+                        scale: [1, 1.1, 1],
+                      }}
+                      transition={{
+                        duration: 4 + index * 0.5,
+                        repeat: Infinity,
+                      }}
+                    >
+                      <div className={`w-full h-full rounded-full bg-gradient-to-br ${method.color} blur-xl`} />
+                    </motion.div>
+
+                    <div className="relative z-10 text-center">
+                      <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${method.color} mb-4`}>
+                        <div className="text-white">
+                          {method.icon}
+                        </div>
+                      </div>
+                      <h3 className="text-xl font-bold mb-2 text-white">{method.title}</h3>
+                      <a 
+                        href={method.action}
+                        target={method.action.includes('http') ? '_blank' : '_self'}
+                        rel={method.action.includes('http') ? 'noopener noreferrer' : ''}
+                        className="text-emerald-300 font-medium hover:text-emerald-200 transition-colors block mb-2"
+                      >
+                        {method.details}
+                      </a>
+                      <p className="text-emerald-100/70 text-sm">{method.description}</p>
+                    </div>
                   </div>
-                  <h3 className="text-xl font-bold mb-2">{method.title}</h3>
-                  <a 
-                    href={method.action}
-                    className="text-primary font-medium hover:text-primary-dark transition-colors block mb-2"
-                  >
-                    {method.details}
-                  </a>
-                  <p className="text-gray-600 text-sm">{method.description}</p>
                 </motion.div>
               ))}
             </div>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Contact Form */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="bg-white rounded-2xl shadow-xl p-8"
-              id="join-form"
+              transition={{ duration: 0.5 }}
+              className="relative"
             >
-              <h2 className="text-2xl font-bold mb-2">Send Us a Message</h2>
-              <p className="text-gray-600 mb-6">Fill out the form below and we'll get back to you soon.</p>
+              <div className="relative bg-gradient-to-b from-gray-900/40 to-black/40 backdrop-blur-lg rounded-2xl p-8 border border-emerald-500/20 overflow-hidden">
+                {/* Background Pattern */}
+                <div className="absolute inset-0 opacity-10">
+                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 via-transparent to-teal-500/10" />
+                </div>
 
-              {isSubmitted ? (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="bg-green-50 border border-green-200 rounded-xl p-6 text-center"
-                >
-                  <div className="text-green-600 text-4xl mb-4">✓</div>
-                  <h3 className="text-xl font-bold mb-2 text-green-800">Message Prepared!</h3>
-                  <p className="text-green-700 mb-4">Your message has been prepared. Please check your email client to send it.</p>
-                  <p className="text-sm text-gray-600">
-                    If your email client didn't open automatically, please send your message to:<br />
-                    <strong>contact@westsideecowarriors.org</strong>
-                  </p>
-                </motion.div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                      Your Name *
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-                      placeholder="John Doe"
-                    />
-                  </div>
+                <div className="relative z-10">
+                  <h2 className="text-2xl font-bold mb-2 text-white">Send Us a Message</h2>
+                  <p className="text-emerald-100/70 mb-6">Fill out the form below and we'll get back to you soon.</p>
 
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                      Email Address *
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-                      placeholder="john@example.com"
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="interest" className="block text-sm font-medium text-gray-700 mb-2">
-                      What are you interested in? *
-                    </label>
-                    <select
-                      id="interest"
-                      name="interest"
-                      value={formData.interest}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all bg-white"
+                  {isSubmitted ? (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="bg-emerald-900/30 border border-emerald-500/30 rounded-xl p-6 text-center"
                     >
-                      {interestOptions.map((option) => (
-                        <option key={option.value} value={option.value}>
-                          {option.label}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                      <div className="text-emerald-400 text-4xl mb-4">✓</div>
+                      <h3 className="text-xl font-bold mb-2 text-emerald-200">Message Prepared!</h3>
+                      <p className="text-emerald-300 mb-4">Your message has been prepared. Please check your email client to send it.</p>
+                      <p className="text-sm text-emerald-200/60">
+                        If your email client didn't open automatically, please send your message to:<br />
+                        <strong>ecowarriors.254@gmail.com</strong>
+                      </p>
+                    </motion.div>
+                  ) : (
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                      <div>
+                        <label htmlFor="name" className="block text-sm font-medium text-emerald-200 mb-2">
+                          Your Name *
+                        </label>
+                        <input
+                          type="text"
+                          id="name"
+                          name="name"
+                          value={formData.name}
+                          onChange={handleChange}
+                          required
+                          className="w-full px-4 py-3 bg-black/50 border border-emerald-500/30 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-white placeholder-emerald-200/50 transition-all backdrop-blur-sm"
+                          placeholder="John Doe"
+                        />
+                      </div>
 
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                      Your Message *
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      required
-                      rows={4}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-                      placeholder="Tell us about your interest in West Side Eco Warriors..."
-                    />
-                  </div>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                          <label htmlFor="email" className="block text-sm font-medium text-emerald-200 mb-2">
+                            Email Address *
+                          </label>
+                          <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            required
+                            className="w-full px-4 py-3 bg-black/50 border border-emerald-500/30 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-white placeholder-emerald-200/50 transition-all backdrop-blur-sm"
+                            placeholder="john@example.com"
+                          />
+                        </div>
 
-                  <div className="space-y-4">
-                    <motion.button
-                      type="submit"
-                      disabled={isSubmitting}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="w-full btn-primary flex items-center justify-center gap-2"
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <div className="h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                          Preparing Email...
-                        </>
-                      ) : (
-                        <>
-                          <Send className="h-4 w-4" />
-                          Continue to Email
-                        </>
-                      )}
-                    </motion.button>
+                        <div>
+                          <label htmlFor="phone" className="block text-sm font-medium text-emerald-200 mb-2">
+                            Phone Number
+                          </label>
+                          <input
+                            type="tel"
+                            id="phone"
+                            name="phone"
+                            value={formData.phone}
+                            onChange={handleChange}
+                            className="w-full px-4 py-3 bg-black/50 border border-emerald-500/30 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-white placeholder-emerald-200/50 transition-all backdrop-blur-sm"
+                            placeholder="0712 345 678"
+                          />
+                        </div>
+                      </div>
 
-                    <p className="text-gray-500 text-sm text-center">
-                      This will open your email client with a pre-filled message.
-                    </p>
-                  </div>
-                </form>
-              )}
+                      <div>
+                        <label htmlFor="subject" className="block text-sm font-medium text-emerald-200 mb-2">
+                          What is this regarding? *
+                        </label>
+                        <select
+                          id="subject"
+                          name="subject"
+                          value={formData.subject}
+                          onChange={handleChange}
+                          required
+                          className="w-full px-4 py-3 bg-black/50 border border-emerald-500/30 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-white transition-all backdrop-blur-sm"
+                        >
+                          {subjectOptions.map((option) => (
+                            <option key={option.value} value={option.value} className="bg-black">
+                              {option.label}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <div>
+                        <label htmlFor="message" className="block text-sm font-medium text-emerald-200 mb-2">
+                          Your Message *
+                        </label>
+                        <textarea
+                          id="message"
+                          name="message"
+                          value={formData.message}
+                          onChange={handleChange}
+                          required
+                          rows={4}
+                          className="w-full px-4 py-3 bg-black/50 border border-emerald-500/30 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-white placeholder-emerald-200/50 transition-all backdrop-blur-sm"
+                          placeholder="Tell us about your interest in West Side Eco Warriors..."
+                        />
+                      </div>
+
+                      <div className="space-y-4">
+                        <motion.button
+                          type="submit"
+                          disabled={isSubmitting}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          className="relative group w-full"
+                        >
+                          <div className="absolute -inset-1 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-2xl blur opacity-70 group-hover:opacity-100 transition duration-300" />
+                          <div className="relative bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold py-3 px-8 rounded-2xl transition-all duration-300 flex items-center justify-center gap-2">
+                            {isSubmitting ? (
+                              <>
+                                <div className="h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                                Preparing Email...
+                              </>
+                            ) : (
+                              <>
+                                <Send className="h-5 w-5" />
+                                Continue to Email
+                                <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                              </>
+                            )}
+                          </div>
+                        </motion.button>
+
+                        <p className="text-emerald-200/50 text-sm text-center">
+                          This will open your email client with a pre-filled message.
+                        </p>
+                      </div>
+                    </form>
+                  )}
+                </div>
+              </div>
             </motion.div>
 
             {/* Info Section */}
@@ -284,67 +373,102 @@ export default function ContactPage() {
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="space-y-8"
+              transition={{ duration: 0.5 }}
+              className="space-y-6"
             >
-              <div className="bg-gradient-green rounded-2xl p-8 text-white">
-                <h3 className="text-2xl font-bold mb-4">Why Join West Side Eco Warriors?</h3>
+              {/* Why Join Section */}
+              <div className="relative bg-gradient-to-br from-emerald-600 to-teal-700 rounded-2xl p-6 overflow-hidden">
+                {/* Background Pattern */}
+                <div className="absolute inset-0 opacity-20">
+                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-400/10 via-transparent to-teal-400/10" />
+                </div>
+                
+                <h3 className="text-2xl font-bold mb-4 text-white flex items-center gap-2">
+                  <Target className="h-6 w-6" />
+                  Why Join West Side Eco Warriors?
+                </h3>
                 <ul className="space-y-3">
-                  <li className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-white rounded-full mt-2"></div>
-                    <span>Make tangible impact in your community</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-white rounded-full mt-2"></div>
-                    <span>Gain leadership and environmental skills</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-white rounded-full mt-2"></div>
-                    <span>Connect with like-minded youth</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-white rounded-full mt-2"></div>
-                    <span>Be part of Kenya's environmental movement</span>
-                  </li>
+                  {[
+                    "Make tangible impact in your community",
+                    "Gain leadership and environmental skills",
+                    "Connect with like-minded youth",
+                    "Be part of Kenya's environmental movement"
+                  ].map((item, index) => (
+                    <motion.li
+                      key={index}
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      viewport={{ once: true }}
+                      className="flex items-start gap-3"
+                    >
+                      <div className="w-2 h-2 bg-emerald-300 rounded-full mt-2"></div>
+                      <span className="text-emerald-100">{item}</span>
+                    </motion.li>
+                  ))}
                 </ul>
               </div>
 
-              <div className="bg-gray-50 rounded-2xl p-8" id="locations">
-                <h3 className="text-2xl font-bold mb-4">Our Focus Areas</h3>
+              {/* Focus Areas */}
+              <div className="relative bg-gradient-to-b from-gray-900/40 to-black/40 backdrop-blur-lg rounded-2xl p-6 border border-emerald-500/20 overflow-hidden" id="locations">
+                <h3 className="text-2xl font-bold mb-4 text-white flex items-center gap-2">
+                  <Globe className="h-6 w-6 text-emerald-400" />
+                  Our Focus Areas
+                </h3>
                 <div className="space-y-4">
                   {[
                     { location: "Kangemi", focus: "Nairobi River clean-up & school programs" },
                     { location: "Watiti", focus: "Community waste management & green spaces" },
                     { location: "Keroka", focus: "Market waste systems & river protection" }
                   ].map((area, index) => (
-                    <div key={index} className="flex items-start gap-3">
-                      <MapPin className="h-5 w-5 text-primary mt-1" />
-                      <div>
-                        <div className="font-bold">{area.location}</div>
-                        <div className="text-gray-600 text-sm">{area.focus}</div>
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 10 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      viewport={{ once: true }}
+                      className="flex items-start gap-3"
+                    >
+                      <div className="p-2 rounded-lg bg-emerald-900/30 border border-emerald-500/30">
+                        <MapPin className="h-4 w-4 text-emerald-400" />
                       </div>
-                    </div>
+                      <div>
+                        <div className="font-bold text-emerald-200">{area.location}</div>
+                        <div className="text-emerald-100/70 text-sm">{area.focus}</div>
+                      </div>
+                    </motion.div>
                   ))}
                 </div>
               </div>
 
-              <div className="bg-primary/5 rounded-2xl p-8 border border-primary/20">
-                <h3 className="text-2xl font-bold mb-4">Response Time</h3>
-                <div className="space-y-2">
-                  <div className="flex justify-between">
-                    <span className="text-gray-700">General Inquiries:</span>
-                    <span className="font-bold">Within 24 hours</span>
+              {/* Response Time */}
+              <div className="relative bg-gradient-to-b from-gray-900/40 to-black/40 backdrop-blur-lg rounded-2xl p-6 border border-emerald-500/20 overflow-hidden">
+                <h3 className="text-2xl font-bold mb-4 text-white flex items-center gap-2">
+                  <Clock className="h-6 w-6 text-emerald-400" />
+                  Response Time
+                </h3>
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg bg-emerald-900/30 border border-emerald-500/30">
+                      <Zap className="h-4 w-4 text-emerald-400" />
+                    </div>
+                    <div>
+                      <div className="font-medium text-emerald-200">General Inquiries</div>
+                      <div className="text-sm text-emerald-100/70">Within 24 hours</div>
+                    </div>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-700">Volunteer Applications:</span>
-                    <span className="font-bold">Within 48 hours</span>
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg bg-emerald-900/30 border border-emerald-500/30">
+                      <Users className="h-4 w-4 text-emerald-400" />
+                    </div>
+                    <div>
+                      <div className="font-medium text-emerald-200">Volunteer Applications</div>
+                      <div className="text-sm text-emerald-100/70">Within 48 hours</div>
+                    </div>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-700">Partnership Requests:</span>
-                    <span className="font-bold">Within 72 hours</span>
+                  <div className="text-sm text-emerald-200/60 mt-4">
+                    We're a youth-led initiative, so response times may vary during major clean-up operations.
                   </div>
-                </div>
-                <div className="mt-4 text-sm text-gray-600">
-                  We're a youth-led initiative, so response times may vary during major clean-up operations.
                 </div>
               </div>
             </motion.div>
@@ -352,27 +476,28 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Map/Location Section */}
-      <section className="bg-gray-50 py-16">
-        <div className="container-custom">
+      {/* Location Section */}
+      <section className="relative z-10 py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl font-bold mb-4">Where We Operate</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <h2 className="text-3xl font-bold mb-4 text-white">Where We Operate</h2>
+            <p className="text-emerald-200/60 max-w-2xl mx-auto">
               Based in West Side, Nairobi, with active projects across multiple communities
             </p>
           </motion.div>
 
-          <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-            <div className="h-64 bg-gradient-to-r from-primary/20 to-primary/10 flex items-center justify-center">
+          <div className="relative bg-gradient-to-b from-gray-900/40 to-black/40 backdrop-blur-lg rounded-2xl border border-emerald-500/20 overflow-hidden">
+            <div className="h-64 bg-gradient-to-r from-emerald-600/20 to-teal-500/10 flex items-center justify-center">
               <div className="text-center">
-                <MapPin className="h-12 w-12 text-primary mx-auto mb-4" />
-                <h3 className="text-xl font-bold mb-2">West Side, Nairobi, Kenya</h3>
-                <p className="text-gray-700">Primary operations in Kangemi, Watiti, and Keroka areas</p>
+                <MapPin className="h-12 w-12 text-emerald-400 mx-auto mb-4" />
+                <h3 className="text-2xl font-bold mb-2 text-white">West Side, Nairobi, Kenya</h3>
+                <p className="text-emerald-200/80">Primary operations in Kangemi, Watiti, and Keroka areas</p>
               </div>
             </div>
             <div className="p-8">
@@ -380,25 +505,32 @@ export default function ContactPage() {
                 {[
                   {
                     area: "Kangemi Operations",
-                    contact: "kangemi@westsideecowarriors.org",
-                    hours: "Sat-Sun, 8AM-4PM"
+                    contact: "ecowarriors.254@gmail.com",
+                    hours: "Weekends, 8AM-4PM"
                   },
                   {
                     area: "Watiti Operations",
-                    contact: "watiti@westsideecowarriors.org",
-                    hours: "Sat-Sun, 8AM-4PM"
+                    contact: "0117574570",
+                    hours: "Weekends, 8AM-4PM"
                   },
                   {
                     area: "Keroka Operations",
-                    contact: "keroka@westsideecowarriors.org",
-                    hours: "Sat-Sun, 8AM-4PM"
+                    contact: "@whywainaina",
+                    hours: "Weekends, 8AM-4PM"
                   }
                 ].map((location, index) => (
-                  <div key={index} className="text-center p-4">
-                    <h4 className="font-bold mb-2">{location.area}</h4>
-                    <div className="text-primary mb-1">{location.contact}</div>
-                    <div className="text-sm text-gray-600">{location.hours}</div>
-                  </div>
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                    className="text-center p-4"
+                  >
+                    <h4 className="font-bold mb-2 text-white">{location.area}</h4>
+                    <div className="text-emerald-300 mb-1">{location.contact}</div>
+                    <div className="text-sm text-emerald-200/60">{location.hours}</div>
+                  </motion.div>
                 ))}
               </div>
             </div>

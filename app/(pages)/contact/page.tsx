@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, MessageSquare, Send, Users, Clock, Instagram, Zap, Sparkles, Leaf, ArrowRight, Globe, Shield, Target } from 'lucide-react';
+import { Mail, Phone, MapPin, MessageSquare, Send, Users, Clock, Instagram, Zap, Sparkles, Leaf, ArrowRight, Globe, Shield, Target, Navigation, ExternalLink } from 'lucide-react';
 import { useState } from 'react';
 
 export default function ContactPage() {
@@ -97,6 +97,50 @@ export default function ContactPage() {
     { value: 'media', label: 'Media Inquiry' },
     { value: 'other', label: 'Other' }
   ];
+
+  // Coordinates for each location with the provided information
+  const locations = [
+    {
+      name: "Main Headquarters",
+      area: "West Side HQ",
+      coordinates: "-1.2775, 36.7597",
+      plusCode: "PPJX+F8V",
+      address: "Along Gichangi Road, Nairobi",
+      focus: "Main operations and coordination center",
+      googleMapsUrl: "https://www.google.com/maps/place/PPJX%2BF8V,+Nairobi/@-1.2775,36.7597,17z",
+      directionsUrl: "https://www.google.com/maps/dir//PPJX%2BF8V,+Nairobi/@-1.2775,36.7597"
+    },
+    {
+      name: "Kangemi",
+      area: "Kangemi Operations",
+      coordinates: "-1.2850, 36.7550",
+      plusCode: "PPJX+Q8V",
+      address: "Kangemi, Nairobi, Kenya",
+      focus: "Nairobi River clean-up & school programs",
+      googleMapsUrl: "https://www.google.com/maps/place/Kangemi,+Nairobi/@-1.2850,36.7550,15z"
+    },
+    {
+      name: "Watiti",
+      area: "Watiti Operations",
+      coordinates: "-1.2678, 36.7489",
+      plusCode: "PPJW+W5V",
+      address: "Watiti, Nairobi, Kenya",
+      focus: "Community waste management & green spaces",
+      googleMapsUrl: "https://www.google.com/maps/place/Watiti,+Nairobi/@-1.2678,36.7489,15z"
+    },
+    {
+      name: "Keroka",
+      area: "Keroka Operations",
+      coordinates: "-1.2589, 36.7382",
+      plusCode: "PPJV+Q4V",
+      address: "Keroka, Nairobi, Kenya",
+      focus: "Market waste systems & river protection",
+      googleMapsUrl: "https://www.google.com/maps/place/Keroka,+Nairobi/@-1.2589,36.7382,15z"
+    }
+  ];
+
+  // Embed map for main location
+  const mainMapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=36.7497,-1.2875,36.7697,-1.2675&layer=mapnik&marker=-1.2775,36.7597`;
 
   return (
     <div className="min-h-screen pt-20 bg-black relative overflow-hidden">
@@ -416,11 +460,7 @@ export default function ContactPage() {
                   Our Focus Areas
                 </h3>
                 <div className="space-y-4">
-                  {[
-                    { location: "Kangemi", focus: "Nairobi River clean-up & school programs" },
-                    { location: "Watiti", focus: "Community waste management & green spaces" },
-                    { location: "Keroka", focus: "Market waste systems & river protection" }
-                  ].map((area, index) => (
+                  {locations.map((location, index) => (
                     <motion.div
                       key={index}
                       initial={{ opacity: 0, y: 10 }}
@@ -432,9 +472,22 @@ export default function ContactPage() {
                       <div className="p-2 rounded-lg bg-emerald-900/30 border border-emerald-500/30">
                         <MapPin className="h-4 w-4 text-emerald-400" />
                       </div>
-                      <div>
-                        <div className="font-bold text-emerald-200">{area.location}</div>
-                        <div className="text-emerald-100/70 text-sm">{area.focus}</div>
+                      <div className="flex-1">
+                        <div className="font-bold text-emerald-200">{location.name}</div>
+                        <div className="text-emerald-100/70 text-sm">{location.focus}</div>
+                        <div className="text-emerald-300/50 text-xs mt-1">{location.address}</div>
+                        {location.plusCode && (
+                          <a
+                            href={location.googleMapsUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-emerald-400/70 hover:text-emerald-300 text-xs mt-1 transition-colors"
+                          >
+                            <Navigation className="h-3 w-3" />
+                            {location.plusCode}
+                            <ExternalLink className="h-3 w-3" />
+                          </a>
+                        )}
                       </div>
                     </motion.div>
                   ))}
@@ -476,7 +529,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Location Section */}
+      {/* Interactive Map Section */}
       <section className="relative z-10 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -486,51 +539,76 @@ export default function ContactPage() {
             transition={{ duration: 0.5 }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl font-bold mb-4 text-white">Where We Operate</h2>
+            <h2 className="text-3xl font-bold mb-4 text-white">Find Us Here</h2>
             <p className="text-emerald-200/60 max-w-2xl mx-auto">
-              Based in West Side, Nairobi, with active projects across multiple communities
+              Visit our headquarters along Gichangi Road, West Side, Nairobi
             </p>
           </motion.div>
 
           <div className="relative bg-gradient-to-b from-gray-900/40 to-black/40 backdrop-blur-lg rounded-2xl border border-emerald-500/20 overflow-hidden">
-            <div className="h-64 bg-gradient-to-r from-emerald-600/20 to-teal-500/10 flex items-center justify-center">
-              <div className="text-center">
-                <MapPin className="h-12 w-12 text-emerald-400 mx-auto mb-4" />
-                <h3 className="text-2xl font-bold mb-2 text-white">West Side, Nairobi, Kenya</h3>
-                <p className="text-emerald-200/80">Primary operations in Kangemi, Watiti, and Keroka areas</p>
+            {/* Interactive Map */}
+            <div className="relative h-[400px] md:h-[500px] w-full bg-gradient-to-r from-emerald-600/20 to-teal-500/10">
+              <iframe
+                src={mainMapUrl}
+                className="absolute inset-0 w-full h-full"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="West Side Eco Warriors Location Map"
+              />
+              
+              {/* Map Overlay Info */}
+              <div className="absolute bottom-4 left-4 right-4 md:bottom-6 md:left-6 bg-black/80 backdrop-blur-md rounded-lg p-4 border border-emerald-500/30 max-w-md">
+                <div className="flex items-start gap-3">
+                  <div className="p-2 rounded-lg bg-emerald-500/20">
+                    <MapPin className="h-5 w-5 text-emerald-400" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-white text-lg">West Side Eco Warriors HQ</h3>
+                    <p className="text-emerald-200/80 text-sm">PPJX+F8V, Along Gichangi Road, Nairobi</p>
+                    <a
+                      href="https://www.google.com/maps/dir//PPJX%2BF8V,+Nairobi/@-1.2775,36.7597"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 mt-2 text-emerald-400 hover:text-emerald-300 text-sm transition-colors"
+                    >
+                      <Navigation className="h-4 w-4" />
+                      Get Directions
+                      <ExternalLink className="h-3 w-3" />
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
+
+            {/* Location Details */}
             <div className="p-8">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {[
-                  {
-                    area: "Kangemi Operations",
-                    contact: "ecowarriors.254@gmail.com",
-                    hours: "Weekends, 8AM-4PM"
-                  },
-                  {
-                    area: "Watiti Operations",
-                    contact: "0117574570",
-                    hours: "Weekends, 8AM-4PM"
-                  },
-                  {
-                    area: "Keroka Operations",
-                    contact: "@whywainaina",
-                    hours: "Weekends, 8AM-4PM"
-                  }
-                ].map((location, index) => (
-                  <motion.div
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {locations.map((location, index) => (
+                  <motion.a
                     key={index}
+                    href={location.googleMapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 }}
                     viewport={{ once: true }}
-                    className="text-center p-4"
+                    className="group cursor-pointer"
                   >
-                    <h4 className="font-bold mb-2 text-white">{location.area}</h4>
-                    <div className="text-emerald-300 mb-1">{location.contact}</div>
-                    <div className="text-sm text-emerald-200/60">{location.hours}</div>
-                  </motion.div>
+                    <div className="text-center p-4 rounded-xl bg-emerald-900/20 border border-emerald-500/20 group-hover:border-emerald-400/40 transition-all duration-300">
+                      <div className="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
+                        <MapPin className="h-5 w-5 text-emerald-400" />
+                      </div>
+                      <h4 className="font-bold mb-1 text-white group-hover:text-emerald-300 transition-colors">{location.name}</h4>
+                      <div className="text-sm text-emerald-300/80 mb-1">{location.focus}</div>
+                      <div className="text-xs text-emerald-200/50">{location.address}</div>
+                      {location.plusCode && (
+                        <div className="text-xs text-emerald-400/60 mt-2 font-mono">{location.plusCode}</div>
+                      )}
+                    </div>
+                  </motion.a>
                 ))}
               </div>
             </div>

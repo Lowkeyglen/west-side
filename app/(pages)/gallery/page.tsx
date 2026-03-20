@@ -2,126 +2,70 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
-import { X, ChevronLeft, ChevronRight, Camera, Users, Flame, MapPin, Calendar, Filter, Trash2, Trees, Droplets, Sparkles, Zap, Leaf, Globe, Target, Award, ArrowRight, Image as ImageIcon } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight, Camera, Users, Flame, MapPin, Calendar, Filter, Trash2, Trees, Droplets, Sparkles, Zap, Leaf, Globe, Target, Award, ArrowRight, Image as ImageIcon, Navigation } from 'lucide-react';
+import Image from 'next/image';
 
 // Gallery items with your actual locations - Nairobi River, Watiti, Keroka, Gishagi
 const galleryItems = [
   {
     id: 1,
-    title: "Nairobi River Kangemi Clean-up",
-    description: "Major clean-up operation along the Nairobi River in Kangemi area. Removed plastic waste and debris affecting water quality.",
+    title: "Nairobi River Clean-up",
+    description: "Clean-up operation along the Nairobi River. Removing plastic waste and debris affecting water quality.",
     category: "environment",
     date: "March 2026",
-    location: "Nairobi River, Kangemi",
-    stats: "3 tons of waste removed",
-    image: "/images/projects/nairobi-river-kangemi.jpg",
+    location: "Nairobi River",
+    coordinates: "-1.2775, 36.7597",
+    plusCode: "PPJX+F8V",
+    stats: "3 projects completed",
+    image: "/images/gallery/nairobi-river.jpg",
     color: "from-emerald-500 to-teal-600",
     icon: <Droplets className="h-5 w-5" />,
-    impact: "Improved water quality for local communities"
+    impact: "Water Quality & Clean-up"
   },
   {
     id: 2,
-    title: "Watiti Community Mobilization",
+    title: "Watiti Community Engagement",
     description: "Engaging Watiti residents in waste management education and organizing local clean-up teams.",
     category: "community",
     date: "April 2026",
-    location: "Watiti, Nairobi River",
-    stats: "150 residents trained",
-    image: "/images/projects/watiti-community.jpg",
+    location: "Watiti",
+    coordinates: "-1.2678, 36.7489",
+    plusCode: "PPJW+W5V",
+    stats: "2 projects completed",
+    image: "/images/gallery/watiti.jpg",
     color: "from-emerald-500 to-green-600",
     icon: <Users className="h-5 w-5" />,
-    impact: "Active community clean-up teams established"
+    impact: "Community Engagement"
   },
   {
     id: 3,
-    title: "Keroka Market Waste Management",
-    description: "Establishing proper waste disposal systems at Keroka market to prevent litter accumulation.",
-    category: "community",
+    title: "Keroka Waste Management",
+    description: "Establishing proper waste disposal systems at Keroka market and protecting river banks.",
+    category: "environment",
     date: "May 2026",
-    location: "Keroka Market",
-    stats: "2 disposal points created",
-    image: "/images/projects/keroka-market.jpg",
+    location: "Keroka",
+    coordinates: "-1.2589, 36.7382",
+    plusCode: "PPJV+Q4V",
+    stats: "2 projects completed",
+    image: "/images/gallery/keroka.jpg",
     color: "from-teal-500 to-emerald-600",
     icon: <Trash2 className="h-5 w-5" />,
-    impact: "Reduced market waste by 70%"
+    impact: "Market & River Banks"
   },
   {
     id: 4,
     title: "Gishagi Youth Training",
-    description: "Training Gishagi youth on safe waste burning techniques and environmental conservation.",
+    description: "Training Gishagi youth on safe waste management techniques and environmental conservation.",
     category: "training",
     date: "June 2026",
-    location: "Gishagi Youth Center",
-    stats: "35 youth certified",
-    image: "/images/projects/gishagi-training.jpg",
+    location: "Gishagi",
+    coordinates: "-1.2500, 36.7300",
+    plusCode: "PPJV+2X5",
+    stats: "Youth-led initiatives",
+    image: "/images/gallery/gishagi.jpg",
     color: "from-green-500 to-emerald-600",
     icon: <Flame className="h-5 w-5" />,
-    impact: "Youth-led waste management initiatives"
-  },
-  {
-    id: 5,
-    title: "Nairobi River Watiti Section",
-    description: "Creating and maintaining green spaces along Nairobi River in Watiti while clearing illegal dumping sites.",
-    category: "environment",
-    date: "July 2026",
-    location: "Nairobi River, Watiti",
-    stats: "5 green spaces established",
-    image: "/images/projects/nairobi-river-watiti.jpg",
-    color: "from-emerald-400 to-teal-500",
-    icon: <Trees className="h-5 w-5" />,
-    impact: "River banks protected from erosion"
-  },
-  {
-    id: 6,
-    title: "Keroka River Bank Protection",
-    description: "Protecting river banks in Keroka from erosion caused by improper waste disposal.",
-    category: "environment",
-    date: "August 2026",
-    location: "Keroka River Banks",
-    stats: "1km river bank secured",
-    image: "/images/projects/keroka-riverbank.jpg",
-    color: "from-emerald-400 to-green-500",
-    icon: <Droplets className="h-5 w-5" />,
-    impact: "Prevented soil erosion in critical areas"
-  },
-  {
-    id: 7,
-    title: "Kangemi School Program",
-    description: "Launching environmental clubs in Kangemi schools to educate children on waste management.",
-    category: "education",
-    date: "September 2026",
-    location: "Kangemi Schools",
-    stats: "4 schools participating",
-    image: "/images/projects/kangemi-schools.jpg",
-    color: "from-teal-500 to-green-600",
-    icon: <Users className="h-5 w-5" />,
-    impact: "1,200+ students educated"
-  },
-  {
-    id: 8,
-    title: "Gishagi Community Clean-up",
-    description: "Joint clean-up operation in Gishagi area involving youth and community leaders.",
-    category: "community",
-    date: "October 2026",
-    location: "Gishagi",
-    stats: "Cross-community team formed",
-    image: "/images/projects/gishagi-cleanup.jpg",
-    color: "from-green-500 to-teal-600",
-    icon: <Users className="h-5 w-5" />,
-    impact: "Cleaner residential areas"
-  },
-  {
-    id: 9,
-    title: "Nairobi River Monitoring",
-    description: "Regular monitoring and maintenance of cleaned areas along Nairobi River.",
-    category: "monitoring",
-    date: "November 2026",
-    location: "Nairobi River",
-    stats: "Monthly monitoring established",
-    image: "/images/projects/nairobi-river-monitoring.jpg",
-    color: "from-emerald-500 to-cyan-500",
-    icon: <Droplets className="h-5 w-5" />,
-    impact: "Sustainable waste management system"
+    impact: "Youth Training & Development"
   }
 ];
 
@@ -129,9 +73,7 @@ const categories = [
   { id: "all", name: "All Projects", icon: <Camera className="h-4 w-4" />, color: "from-emerald-500 to-teal-600" },
   { id: "environment", name: "Environment", icon: <Trees className="h-4 w-4" />, color: "from-emerald-500 to-green-600" },
   { id: "community", name: "Community", icon: <Users className="h-4 w-4" />, color: "from-teal-500 to-emerald-600" },
-  { id: "education", name: "Education", icon: <Globe className="h-4 w-4" />, color: "from-green-500 to-emerald-600" },
-  { id: "training", name: "Training", icon: <Flame className="h-4 w-4" />, color: "from-emerald-400 to-teal-500" },
-  { id: "monitoring", name: "Monitoring", icon: <Target className="h-4 w-4" />, color: "from-teal-500 to-green-600" }
+  { id: "training", name: "Training", icon: <Flame className="h-4 w-4" />, color: "from-emerald-400 to-teal-500" }
 ];
 
 const locations = [
@@ -147,11 +89,12 @@ export default function GalleryPage() {
   const [selectedLocation, setSelectedLocation] = useState("all");
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [imagesLoaded, setImagesLoaded] = useState<{ [key: number]: boolean }>({});
 
   const filteredItems = galleryItems.filter(item => {
     const categoryMatch = selectedCategory === "all" || item.category === selectedCategory;
     const locationMatch = selectedLocation === "all" || 
-      item.location.toLowerCase().includes(selectedLocation.toLowerCase());
+      item.location.toLowerCase().replace(/\s/g, '-') === selectedLocation;
     return categoryMatch && locationMatch;
   });
 
@@ -178,6 +121,10 @@ export default function GalleryPage() {
 
   const selectedItem = galleryItems.find(item => item.id === selectedImage);
 
+  const handleImageLoad = (id: number) => {
+    setImagesLoaded(prev => ({ ...prev, [id]: true }));
+  };
+
   return (
     <div className="min-h-screen pt-20 bg-black relative overflow-hidden">
       {/* Animated Background */}
@@ -195,7 +142,6 @@ export default function GalleryPage() {
             transition={{ duration: 0.8 }}
             className="space-y-6"
           >
-            {/* Animated Logo */}
             <motion.div
               className="inline-block"
               animate={{
@@ -332,58 +278,59 @@ export default function GalleryPage() {
                   className="group"
                 >
                   <div 
-                    className="relative bg-gradient-to-b from-gray-900/40 to-black/40 backdrop-blur-lg rounded-2xl border border-emerald-500/20 overflow-hidden hover:border-emerald-400/30 transition-all duration-300 cursor-pointer h-full"
+                    className="relative bg-gradient-to-b from-gray-900/40 to-black/40 backdrop-blur-lg rounded-2xl border border-emerald-500/20 overflow-hidden hover:border-emerald-400/30 transition-all duration-300 cursor-pointer h-full flex flex-col"
                     onClick={() => openLightbox(item.id)}
                   >
-                    {/* Background Energy Orb */}
-                    <motion.div
-                      className="absolute -inset-4 opacity-30"
-                      animate={{
-                        scale: [1, 1.1, 1],
-                      }}
-                      transition={{
-                        duration: 4 + index * 0.5,
-                        repeat: Infinity,
-                      }}
-                    >
-                      <div className={`w-full h-full rounded-full bg-gradient-to-br ${item.color} blur-xl`} />
-                    </motion.div>
-
-                    {/* Image Placeholder with Gradient */}
-                    <div className={`h-48 relative overflow-hidden`}>
-                      <div className={`absolute inset-0 bg-gradient-to-br ${item.color} flex items-center justify-center`}>
-                        <div className="text-white text-center p-4">
-                          <div className="mb-2">{item.icon}</div>
-                          <div className="font-bold text-lg">{item.title.split(' ')[0]}</div>
-                          <div className="text-sm opacity-90">{item.location.split(',')[0]}</div>
-                        </div>
+                    {/* Image Container - Auto height based on image */}
+                    <div className="relative w-full bg-gray-900/50 flex items-center justify-center">
+                      <div className="relative w-full" style={{ minHeight: '200px' }}>
+                        <Image
+                          src={item.image}
+                          alt={item.title}
+                          width={800}
+                          height={600}
+                          className={`w-full h-auto transition-transform duration-500 group-hover:scale-105 ${
+                            imagesLoaded[item.id] ? 'opacity-100' : 'opacity-0'
+                          }`}
+                          style={{ objectFit: 'contain' }}
+                          onLoad={() => handleImageLoad(item.id)}
+                          priority={index < 3}
+                        />
+                        {!imagesLoaded[item.id] && (
+                          <div className={`absolute inset-0 bg-gradient-to-br ${item.color} flex items-center justify-center`}>
+                            <div className="text-white text-center p-4">
+                              <div className="mb-2 animate-pulse">{item.icon}</div>
+                              <div className="font-bold text-lg">Loading...</div>
+                            </div>
+                          </div>
+                        )}
                       </div>
-                      <div className="absolute top-4 right-4 bg-black/40 backdrop-blur-sm px-3 py-1 rounded-full text-emerald-200 text-sm border border-emerald-500/30">
+                      <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-sm px-3 py-1 rounded-full text-emerald-200 text-sm border border-emerald-500/30 z-20">
                         {item.category}
                       </div>
                     </div>
 
                     {/* Content */}
-                    <div className="p-6 relative z-10">
+                    <div className="p-6 relative z-10 flex-1">
                       <h3 className="text-xl font-bold mb-2 text-white group-hover:text-emerald-300 transition-colors">
                         {item.title}
                       </h3>
-                      <p className="text-emerald-100/70 text-sm mb-4">{item.description}</p>
+                      <p className="text-emerald-100/70 text-sm mb-4 line-clamp-2">{item.description}</p>
                       
                       <div className="grid grid-cols-2 gap-3 mb-4">
                         <div className="flex items-center gap-2 text-sm text-emerald-200">
-                          <MapPin className="h-4 w-4" />
-                          <span>{item.location}</span>
+                          <MapPin className="h-4 w-4 flex-shrink-0" />
+                          <span className="truncate">{item.location}</span>
                         </div>
                         <div className="flex items-center gap-2 text-sm text-emerald-200">
-                          <Calendar className="h-4 w-4" />
+                          <Calendar className="h-4 w-4 flex-shrink-0" />
                           <span>{item.date}</span>
                         </div>
                       </div>
 
                       <div className="bg-emerald-900/30 rounded-lg p-3 border border-emerald-500/30">
                         <div className="text-emerald-300 font-bold">{item.stats}</div>
-                        <div className="text-xs text-emerald-200/60">Impact Measurement</div>
+                        <div className="text-xs text-emerald-200/60">Impact Focus: {item.impact}</div>
                       </div>
 
                       <div className="mt-4 text-center text-emerald-300 text-sm font-medium flex items-center justify-center gap-2">
@@ -397,25 +344,25 @@ export default function GalleryPage() {
             </div>
           )}
 
-          {/* Stats */}
+          {/* Stats - Updated with correct locations */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="mt-16 relative bg-gradient-to-b from-gray-900/40 to-black/40 backdrop-blur-lg rounded-2xl p-8 border border-emerald-500/20 overflow-hidden"
           >
-            {/* Background Pattern */}
             <div className="absolute inset-0 opacity-10">
               <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 via-transparent to-teal-500/10" />
             </div>
 
             <h3 className="text-2xl font-bold mb-6 text-center text-white">Our Geographic Impact</h3>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
                 {
                   location: "Nairobi River",
                   projects: "3 Projects",
                   focus: "Water Quality & Clean-up",
+                  coordinates: "-1.2775, 36.7597",
                   color: "border-emerald-500",
                   icon: <Droplets className="h-6 w-6" />
                 },
@@ -423,6 +370,7 @@ export default function GalleryPage() {
                   location: "Watiti",
                   projects: "2 Projects",
                   focus: "Community Engagement",
+                  coordinates: "-1.2678, 36.7489",
                   color: "border-teal-500",
                   icon: <Trees className="h-6 w-6" />
                 },
@@ -430,13 +378,15 @@ export default function GalleryPage() {
                   location: "Keroka",
                   projects: "2 Projects",
                   focus: "Market & River Banks",
+                  coordinates: "-1.2589, 36.7382",
                   color: "border-green-500",
                   icon: <Trash2 className="h-6 w-6" />
                 },
                 {
                   location: "Gishagi",
-                  projects: "2 Projects",
-                  focus: "Youth Training",
+                  projects: "Youth-Led",
+                  focus: "Training & Development",
+                  coordinates: "-1.2500, 36.7300",
                   color: "border-emerald-400",
                   icon: <Users className="h-6 w-6" />
                 }
@@ -456,7 +406,16 @@ export default function GalleryPage() {
                     <h4 className="text-xl font-bold text-white">{area.location}</h4>
                   </div>
                   <div className="text-emerald-300 font-bold text-lg mb-1">{area.projects}</div>
-                  <p className="text-emerald-100/70 text-sm">{area.focus}</p>
+                  <p className="text-emerald-100/70 text-sm mb-2">{area.focus}</p>
+                  <a
+                    href={`https://www.google.com/maps?q=${area.coordinates}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-emerald-400/70 hover:text-emerald-300 text-xs transition-colors mt-2"
+                  >
+                    <Navigation className="h-3 w-3" />
+                    View on Maps
+                  </a>
                 </motion.div>
               ))}
             </div>
@@ -470,7 +429,6 @@ export default function GalleryPage() {
             className="text-center mt-16"
           >
             <div className="relative bg-gradient-to-br from-emerald-600 to-teal-700 rounded-2xl p-12 overflow-hidden">
-              {/* Background Pattern */}
               <div className="absolute inset-0 opacity-20">
                 <div className="absolute inset-0 bg-gradient-to-r from-emerald-400/10 via-transparent to-teal-400/10" />
               </div>
@@ -547,91 +505,88 @@ export default function GalleryPage() {
                 <ChevronRight className="h-6 w-6" />
               </button>
 
-              {/* Content */}
-              <div className={`h-[60vh] bg-gradient-to-br ${selectedItem.color} flex items-center justify-center relative overflow-hidden`}>
-                {/* Animated Background */}
-                <div className="absolute inset-0 opacity-30">
-                  {[...Array(3)].map((_, i) => (
-                    <motion.div
-                      key={i}
-                      className="absolute inset-0 rounded-full border border-emerald-400/30"
-                      style={{
-                        top: `-${i * 40}px`,
-                        bottom: `-${i * 40}px`,
-                        left: `-${i * 40}px`,
-                        right: `-${i * 40}px`,
-                      }}
-                      animate={{
-                        scale: [1, 1.2, 1],
-                        opacity: [0.3, 0.1, 0.3],
-                      }}
-                      transition={{
-                        duration: 3 + i,
-                        repeat: Infinity,
-                        delay: i * 0.5,
-                      }}
-                    />
-                  ))}
+              {/* Content - Full image with scroll if needed */}
+              <div className="overflow-y-auto max-h-[90vh]">
+                <div className="relative min-h-[60vh] flex items-center justify-center p-8">
+                  <Image
+                    src={selectedItem.image}
+                    alt={selectedItem.title}
+                    width={1200}
+                    height={900}
+                    className="max-w-full h-auto rounded-lg"
+                    style={{ objectFit: 'contain' }}
+                    priority
+                  />
                 </div>
 
-                <div className="text-white text-center p-8 relative z-10">
-                  <div className="mb-4 transform scale-125">{selectedItem.icon}</div>
-                  <div className="text-4xl font-bold mb-2">{selectedItem.title}</div>
-                  <div className="text-xl opacity-90">{selectedItem.location}</div>
-                </div>
-              </div>
-
-              <div className="p-8">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                  <div className="lg:col-span-2">
-                    <h3 className="text-2xl font-bold mb-4 text-white">Project Details</h3>
-                    <p className="text-emerald-100/80 text-lg">{selectedItem.description}</p>
-                    
-                    <div className="mt-6 grid grid-cols-2 gap-4">
-                      <div className="bg-emerald-900/20 p-4 rounded-lg border border-emerald-500/20">
-                        <div className="flex items-center gap-2 mb-2">
-                          <Calendar className="h-5 w-5 text-emerald-400" />
-                          <span className="font-bold text-emerald-200">Date</span>
-                        </div>
-                        <div className="text-emerald-100">{selectedItem.date}</div>
+                <div className="p-8 pt-0">
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div className="lg:col-span-2">
+                      <div className="flex items-center gap-2 mb-2">
+                        {selectedItem.icon}
+                        <span className="text-emerald-300 font-medium">{selectedItem.category}</span>
                       </div>
-                      <div className="bg-emerald-900/20 p-4 rounded-lg border border-emerald-500/20">
-                        <div className="flex items-center gap-2 mb-2">
-                          <MapPin className="h-5 w-5 text-emerald-400" />
-                          <span className="font-bold text-emerald-200">Location</span>
+                      <h2 className="text-3xl font-bold text-white mb-2">{selectedItem.title}</h2>
+                      <div className="flex items-center gap-4 text-emerald-200/80 mb-4">
+                        <div className="flex items-center gap-1">
+                          <MapPin className="h-4 w-4" />
+                          {selectedItem.location}
                         </div>
-                        <div className="text-emerald-100">{selectedItem.location}</div>
+                        <div className="flex items-center gap-1">
+                          <Calendar className="h-4 w-4" />
+                          {selectedItem.date}
+                        </div>
+                      </div>
+                      <p className="text-emerald-100/80 text-lg mb-6">{selectedItem.description}</p>
+                      
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="bg-emerald-900/20 p-4 rounded-lg border border-emerald-500/20">
+                          <div className="flex items-center gap-2 mb-2">
+                            <MapPin className="h-5 w-5 text-emerald-400" />
+                            <span className="font-bold text-emerald-200">Location</span>
+                          </div>
+                          <div className="text-emerald-100">{selectedItem.location}</div>
+                          {selectedItem.plusCode && (
+                            <div className="text-emerald-400/60 text-xs mt-1 font-mono">{selectedItem.plusCode}</div>
+                          )}
+                          <a
+                            href={`https://www.google.com/maps?q=${selectedItem.coordinates}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-emerald-400/70 hover:text-emerald-300 text-xs mt-2 transition-colors"
+                          >
+                            <Navigation className="h-3 w-3" />
+                            Open in Maps
+                          </a>
+                        </div>
+                        <div className="bg-emerald-900/20 p-4 rounded-lg border border-emerald-500/20">
+                          <div className="flex items-center gap-2 mb-2">
+                            <Calendar className="h-5 w-5 text-emerald-400" />
+                            <span className="font-bold text-emerald-200">Date</span>
+                          </div>
+                          <div className="text-emerald-100">{selectedItem.date}</div>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div className="space-y-6">
-                    <div className="bg-gradient-to-br from-emerald-900/30 to-teal-900/20 p-6 rounded-xl border border-emerald-500/30">
-                      <h4 className="text-xl font-bold mb-3 text-white">Impact Achieved</h4>
-                      <div className="text-2xl font-bold text-emerald-300 mb-2">{selectedItem.stats}</div>
-                      <p className="text-emerald-200/70">{selectedItem.impact}</p>
-                    </div>
-
-                    <div className="bg-emerald-900/20 p-6 rounded-xl border border-emerald-500/20">
-                      <h4 className="text-xl font-bold mb-3 text-white">Project Category</h4>
-                      <div className="flex items-center gap-3">
-                        <div className="p-2 rounded-lg bg-emerald-900/30 border border-emerald-500/30">
-                          {categories.find(c => c.id === selectedItem.category)?.icon}
-                        </div>
-                        <span className="font-medium text-emerald-200">
-                          {categories.find(c => c.id === selectedItem.category)?.name}
-                        </span>
+                    <div className="space-y-6">
+                      <div className="bg-gradient-to-br from-emerald-900/30 to-teal-900/20 p-6 rounded-xl border border-emerald-500/30">
+                        <h4 className="text-xl font-bold mb-3 text-white">Impact Focus</h4>
+                        <div className="text-2xl font-bold text-emerald-300 mb-2">{selectedItem.stats}</div>
+                        <p className="text-emerald-200/70">{selectedItem.impact}</p>
                       </div>
-                    </div>
 
-                    <div className="text-center bg-black/30 p-4 rounded-xl border border-emerald-500/20">
-                      <p className="text-emerald-300 mb-2 flex items-center justify-center gap-2">
-                        <Sparkles className="h-4 w-4" />
-                        Photo coming soon!
-                      </p>
-                      <p className="text-sm text-emerald-200/60">
-                        We're collecting photos from all our operations. Real images will be uploaded as we document our work.
-                      </p>
+                      <div className="bg-emerald-900/20 p-6 rounded-xl border border-emerald-500/20">
+                        <h4 className="text-xl font-bold mb-3 text-white">Project Category</h4>
+                        <div className="flex items-center gap-3">
+                          <div className="p-2 rounded-lg bg-emerald-900/30 border border-emerald-500/30">
+                            {categories.find(c => c.id === selectedItem.category)?.icon}
+                          </div>
+                          <span className="font-medium text-emerald-200">
+                            {categories.find(c => c.id === selectedItem.category)?.name}
+                          </span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

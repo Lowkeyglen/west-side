@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Leaf, Flame, Users, ArrowRight, Shield, Globe, Sparkles, Zap, Orbit, Wind, Mail, Phone, Instagram } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
+import AnimatedText from '@/app/components/AnimatedText';
 
 // Deterministic random function using seed
 const seededRandom = (seed: number) => {
@@ -298,7 +299,7 @@ export default function Home() {
                 </div>
               </motion.div>
 
-              {/* MAIN HEADLINE - WHITE TEXT FOR BETTER VISIBILITY */}
+              {/* MAIN HEADLINE - WITH GSAP ANIMATION */}
               <motion.h1
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -306,7 +307,13 @@ export default function Home() {
                 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight"
               >
                 <span className="text-white">
-                  West Side
+                  <AnimatedText 
+                    text="West Side"
+                    animation="letters"
+                    duration={1.5}
+                    stagger={0.03}
+                    threshold={1}
+                  />
                 </span>
                 <br />
                 <motion.span
@@ -323,19 +330,31 @@ export default function Home() {
                     repeat: Infinity,
                   }}
                 >
-                  Eco Warriors
+                  <AnimatedText 
+                    text="Eco Warriors"
+                    animation="words"
+                    duration={1.2}
+                    stagger={0.1}
+                    delay={0.5}
+                    threshold={1}
+                  />
                 </motion.span>
               </motion.h1>
 
-              {/* SUBTITLE */}
+              {/* SUBTITLE WITH GSAP */}
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
                 className="text-xl md:text-2xl text-emerald-100 max-w-3xl mx-auto font-light leading-relaxed"
               >
-                Youth-led environmental revolution. Transforming communities through 
-                innovative clean-up initiatives and climate advocacy in Kenya.
+                <AnimatedText 
+                  text="Youth-led environmental revolution. Transforming communities through innovative clean-up initiatives and climate advocacy in Kenya."
+                  animation="reveal"
+                  duration={1.5}
+                  delay={1.2}
+                  threshold={1}
+                />
               </motion.p>
 
               {/* CONTACT INFO IN HERO */}
@@ -430,7 +449,13 @@ export default function Home() {
                 viewport={{ once: true }}
                 className="text-4xl md:text-5xl font-bold mb-4 text-white"
               >
-                Our Impact
+                <AnimatedText 
+                  text="Our Impact"
+                  animation="letters"
+                  duration={1}
+                  stagger={0.05}
+                  threshold={0.5}
+                />
               </motion.h2>
               <motion.p
                 initial={{ y: 20, opacity: 0 }}
@@ -492,7 +517,13 @@ export default function Home() {
                 viewport={{ once: true }}
                 className="text-4xl md:text-5xl font-bold mb-4 text-white"
               >
-                Our Focus Areas
+                <AnimatedText 
+                  text="Our Focus Areas"
+                  animation="words"
+                  duration={1}
+                  stagger={0.1}
+                  threshold={0.5}
+                />
               </motion.h2>
             </motion.div>
 
@@ -564,7 +595,13 @@ export default function Home() {
               transition={{ delay: 0.2 }}
               className="text-4xl md:text-5xl font-bold mb-6 text-white"
             >
-              Join Our Mission
+              <AnimatedText 
+                text="Join Our Mission"
+                animation="typewriter"
+                duration={2}
+                delay={0.5}
+                threshold={0.5}
+              />
             </motion.h2>
 
             <motion.p

@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Users, Mail, Globe, Code, Shield, Camera, Book, Music, Goal, Coffee, Trophy, Phone, Instagram, Zap, Sparkles, ArrowRight } from 'lucide-react';
+import { Users, Mail, Globe, Code, Shield, Camera, Book, Music, Goal, Coffee, Trophy, Phone, Instagram, Zap, Sparkles, ArrowRight, Github, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
 import ProfileImage from '@/app/components/ProfileImage';
 
@@ -10,12 +10,36 @@ const teamMembers = [
     id: 1,
     name: "Glen",
     role: "Founder & Tech Lead",
-    bio: "Coordinates operations and handles the digital presence of the initiative.",
-    personal: "Web Developer / Cybersecurity Enthusiast",
+    bio: "Coordinates operations and handles the digital presence of the initiative. Built and maintains this website.",
+    personal: "Full-Stack Web Developer / Cybersecurity Enthusiast",
     personalIcon: <Code className="h-4 w-4" />,
     hobbies: ["Coding", "Security Research", "Photography"],
     email: "glen@westsideecowarriors.org",
     phone: "0115185256",
+    github: "https://github.com/Lowkeyglen",
+    githubUsername: "@Lowkeyglen",
+    portfolio: [
+      {
+        name: "Personal Portfolio",
+        url: "https://glenmudogoportfolio.vercel.app/"
+      },
+      {
+        name: "West Side Eco Warriors",
+        url: "https://west-side-eco-warriors.vercel.app/"
+      },
+      {
+        name: "GlenTech",
+        url: "https://glentech.vercel.app/"
+      },
+      {
+        name: "Your Latin Fantasy",
+        url: "https://your-latin-fantasy.vercel.app/"
+      },
+      {
+        name: "MtaaLeaks",
+        url: "https://mtaaleaks.vercel.app/"
+      }
+    ],
     color: "from-emerald-500 to-teal-600",
     isLeader: true,
   },
@@ -244,37 +268,75 @@ export default function ProfilesPage() {
                         </div>
                       </div>
 
-                      {/* Contact */}
+                      {/* Contact & Portfolio */}
                       <div className="w-full border-t border-emerald-500/20 pt-4 space-y-2">
                         <div className="flex items-center justify-center gap-2 text-sm text-emerald-200/80">
                           <Phone className="h-4 w-4" />
                           <span>{member.phone}</span>
                         </div>
                         
+                        {/* Show GitHub for Glen */}
+                        {member.github && (
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              window.open(member.github, '_blank', 'noopener,noreferrer');
+                            }}
+                            className="flex items-center justify-center gap-2 text-sm text-emerald-200/80 hover:text-purple-300 transition-colors cursor-pointer w-full"
+                          >
+                            <Github className="h-4 w-4" />
+                            {member.githubUsername}
+                          </button>
+                        )}
+                        
+                        {/* Show Portfolio Projects for Glen */}
+                        {member.portfolio && (
+                          <div className="pt-2">
+                            <p className="text-xs font-medium text-emerald-300/60 mb-2">Projects Built:</p>
+                            <div className="flex flex-wrap gap-2 justify-center">
+                              {member.portfolio.map((project, idx) => (
+                                <button
+                                  key={idx}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    window.open(project.url, '_blank', 'noopener,noreferrer');
+                                  }}
+                                  className="inline-flex items-center gap-1 px-2 py-1 bg-emerald-900/30 text-emerald-200/70 hover:text-emerald-200 rounded-md text-xs border border-emerald-500/20 hover:border-emerald-400/40 transition-colors cursor-pointer"
+                                >
+                                  <ExternalLink className="h-3 w-3" />
+                                  {project.name}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                        
                         {/* Show Instagram for Wainaina */}
                         {member.instagram && (
-                          <a 
-                            href={member.instagramLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center justify-center gap-2 text-sm text-emerald-200/80 hover:text-pink-300 transition-colors"
-                            onClick={(e) => e.stopPropagation()}
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              window.open(member.instagramLink, '_blank', 'noopener,noreferrer');
+                            }}
+                            className="flex items-center justify-center gap-2 text-sm text-emerald-200/80 hover:text-pink-300 transition-colors cursor-pointer w-full"
                           >
                             <Instagram className="h-4 w-4" />
                             {member.instagram}
-                          </a>
+                          </button>
                         )}
                         
                         {/* Show email for Glen */}
                         {member.email && (
-                          <a 
-                            href={`mailto:${member.email}`}
-                            className="flex items-center justify-center gap-2 text-sm text-emerald-200/80 hover:text-emerald-300 transition-colors"
-                            onClick={(e) => e.stopPropagation()}
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              window.location.href = `mailto:${member.email}`;
+                            }}
+                            className="flex items-center justify-center gap-2 text-sm text-emerald-200/80 hover:text-emerald-300 transition-colors cursor-pointer w-full"
                           >
                             <Mail className="h-4 w-4" />
                             {member.email}
-                          </a>
+                          </button>
                         )}
                       </div>
                     </div>
